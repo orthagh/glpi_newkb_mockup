@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLPI Knowledge Base - Modern Preview</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet"/>
+
+    <!-- Custom Styles -->
+    <link href="styles.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="kb-container d-flex vh-100 overflow-hidden position-relative">
+        <!-- Left Sidebar: Document Tree -->
+        <aside class="kb-sidebar d-flex flex-column">
+            <div class="kb-sidebar-content flex-fill overflow-auto p-2">
+                <!-- Search -->
+                <div class="px-2 pt-2 pb-1">
+                    <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1" data-bs-toggle="modal" data-bs-target="#searchModal">
+                        <i class="ti ti-search"></i>
+                        <span>Search...</span>
+                    </a>
+                </div>
+
+                <!-- Drafts -->
+                <div class="px-2 pb-3">
+                    <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1">
+                        <i class="ti ti-file-text"></i>
+                        <span>Drafts</span>
+                        <span class="badge bg-secondary bg-opacity-25 text-dark ms-auto">2</span>
+                    </a>
+                </div>
+
+                <!-- Favorites Section -->
+                <div class="doc-section-title px-2 pt-3 pb-2 text-uppercase small fw-semibold">Favorites</div>
+                <ul class="doc-tree list-unstyled">
+                    <li class="doc-tree-item">
+                        <div class="d-flex align-items-center doc-tree-row">
+                            <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                <i class="ti ti-star-filled text-warning"></i>
+                                <span>FAQ</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="doc-tree-item">
+                        <div class="d-flex align-items-center doc-tree-row">
+                            <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                <i class="ti ti-star-filled text-warning"></i>
+                                <span>Best Practices</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Main Documents -->
+                <div class="doc-section-title px-2 pt-3 pb-2 text-uppercase small fw-semibold">Documents</div>
+                <ul class="doc-tree list-unstyled">
+                    <li class="doc-tree-item">
+                        <div class="d-flex align-items-center doc-tree-row">
+                            <button class="doc-tree-toggle border-0 bg-transparent p-0" onclick="toggleTree(this)">
+                                <i class="ti ti-chevron-down"></i>
+                            </button>
+                            <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                <i class="ti ti-book"></i>
+                                <span>GLPI</span>
+                            </a>
+                        </div>
+                        <ul class="doc-tree-nested list-unstyled ps-4">
+                            <li class="doc-tree-item">
+                                <div class="d-flex align-items-center doc-tree-row">
+                                    <button class="doc-tree-toggle border-0 bg-transparent p-0" onclick="toggleTree(this)">
+                                        <i class="ti ti-chevron-down"></i>
+                                    </button>
+                                    <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                        <i class="ti ti-school"></i>
+                                        <span>Tutorials</span>
+                                    </a>
+                                </div>
+                                <ul class="doc-tree-nested list-unstyled ps-4">
+                                    <li class="doc-tree-item">
+                                        <div class="d-flex align-items-center doc-tree-row">
+                                            <button class="doc-tree-toggle border-0 bg-transparent p-0" onclick="toggleTree(this)">
+                                                <i class="ti ti-chevron-down"></i>
+                                            </button>
+                                            <a href="#" class="doc-tree-link active fw-semibold d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                                <i class="ti ti-rocket"></i>
+                                                <span>Getting Started</span>
+                                            </a>
+                                        </div>
+                                        <ul class="doc-tree-nested list-unstyled ps-4">
+                                            <li class="doc-tree-item">
+                                                <div class="d-flex align-items-center doc-tree-row">
+                                                    <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                                        <i class="ti ti-file-text"></i>
+                                                        <span>Installation Guide</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li class="doc-tree-item">
+                                                <div class="d-flex align-items-center doc-tree-row">
+                                                    <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                                        <i class="ti ti-file-text"></i>
+                                                        <span>Quick Start Tutorial</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="doc-tree-item">
+                                        <div class="d-flex align-items-center doc-tree-row">
+                                            <button class="doc-tree-toggle border-0 bg-transparent p-0" onclick="toggleTree(this)">
+                                                <i class="ti ti-chevron-down"></i>
+                                            </button>
+                                            <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                                <i class="ti ti-settings"></i>
+                                                <span>Configuration</span>
+                                            </a>
+                                        </div>
+                                        <ul class="doc-tree-nested list-unstyled ps-4">
+                                            <li class="doc-tree-item">
+                                                <div class="d-flex align-items-center doc-tree-row">
+                                                    <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                                        <i class="ti ti-file-text"></i>
+                                                        <span>System Settings</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                            <li class="doc-tree-item">
+                                                <div class="d-flex align-items-center doc-tree-row">
+                                                    <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                                        <i class="ti ti-file-text"></i>
+                                                        <span>User Management</span>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="doc-tree-item">
+                                        <div class="d-flex align-items-center doc-tree-row">
+                                            <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                                <i class="ti ti-lifebuoy"></i>
+                                                <span>Troubleshooting</span>
+                                            </a>
+                                        </div>
+                                    </li>
+
+                                    <li class="doc-tree-item">
+                                        <div class="d-flex align-items-center doc-tree-row">
+                                            <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1 flex-fill">
+                                                <i class="ti ti-api"></i>
+                                                <span>API Reference</span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="kb-main flex-fill d-flex flex-column overflow-hidden">
+            <div class="kb-content-header bg-opacity-90 px-4 py-3 d-flex align-items-center justify-content-between">
+                <nav class="kb-breadcrumb d-flex align-items-center gap-2 text-secondary small" aria-label="breadcrumb">
+                    <span><i class="ti ti-book me-1"></i>GLPI <span class="mx-2">/</span> <i class="ti ti-school me-1"></i>Tutorials</span>
+                    <span class="kb-breadcrumb-title mx-2" style="display: none;"><span class="mx-2">/</span> <i class="ti ti-rocket me-1"></i>Getting Started with GLPI</span>
+                </nav>
+
+                <div class="kb-actions d-flex align-items-center gap-3">
+                    <!-- Modify Button -->
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="toggleEditMode()">
+                        <i class="ti ti-edit"></i> Modify
+                    </button>
+
+                    <!-- Action Menu (populated from template) -->
+                    <div class="action-menu action-menu-host"></div>
+                </div>
+            </div>
+
+            <div class="kb-content-wrapper flex-fill d-flex overflow-hidden position-relative">
+                <div class="kb-content flex-fill overflow-auto">
+                    <article class="kb-document bg-white rounded-3 px-5 pt-3 mx-auto">
+                        <h1 class="display-5 fw-bold mb-2"><i class="ti ti-rocket" style="font-size: 2.5rem; color: #64748b;"></i> Getting Started with GLPI</h1>
+
+                        <div class="kb-document-meta d-flex align-items-center gap-3 text-secondary small mb-4 pb-4">
+                            <span><i class="ti ti-user"></i> Created by <span class="mention badge bg-primary bg-opacity-10 text-primary">@John Doe</span></span>
+                            <span><i class="ti ti-clock"></i> Updated 2 hours ago</span>
+                            <span><i class="ti ti-eye"></i> 1,234 views</span>
+                        </div>
+
+                        <p class="lead">
+                            Welcome to the new GLPI Knowledge Base! <span class="emoji">👋</span> This guide will help you get started
+                            with the platform and understand its core features.
+                        </p>
+
+                        <h2 id="section-introduction" class="mt-5 pt-3">Introduction</h2>
+                        <p>
+                            <mark class="kb-highlight" data-comment="1">GLPI is a powerful IT Asset Management and Service Desk solution.</mark> This documentation
+                            will guide you through installation, configuration, and daily usage. If you have any
+                            questions, feel free to mention <span class="mention badge bg-primary bg-opacity-10 text-primary">@Support Team</span> in the comments.
+                        </p>
+
+                        <h3 id="section-what-is-glpi" class="mt-4">What is GLPI?</h3>
+                        <p>
+                            GLPI stands for "Gestionnaire Libre de Parc Informatique" (Free IT Equipment Manager).
+                            It's an open-source solution that helps organizations manage their IT infrastructure
+                            efficiently. <span class="emoji">🚀</span>
+                        </p>
+
+                        <h2 id="section-installation" class="mt-5 pt-3">Installation</h2>
+                        <p>
+                            Installing GLPI is straightforward. Follow these steps to get your instance up and running:
+                        </p>
+
+                        <ol>
+                            <li>Download the latest version from the official website</li>
+                            <li>Extract the archive to your web server directory</li>
+                            <li>Create a MySQL database for GLPI</li>
+                            <li>Run the installation wizard by accessing your server URL</li>
+                            <li>Follow the on-screen instructions to complete setup</li>
+                        </ol>
+
+                        <h3 id="section-system-requirements" class="mt-4">System Requirements</h3>
+                        <p>
+                            Before installing, ensure your system meets the minimum requirements:
+                        </p>
+                        <ul>
+                            <li><mark class="kb-highlight" data-comment="2">PHP 7.4 or higher</mark></li>
+                            <li>MySQL 5.7+ or MariaDB 10.2+</li>
+                            <li>Apache or Nginx web server</li>
+                            <li>At least 2GB of RAM (4GB recommended)</li>
+                        </ul>
+
+                        <h2 id="section-configuration" class="mt-5 pt-3">Initial Configuration</h2>
+                        <p>
+                            Once installed, you'll want to <mark class="kb-highlight" data-comment="3">configure GLPI for your organization</mark>. The configuration
+                            process includes setting up entities, defining user roles, and configuring notifications.
+                            <span class="emoji">⚙️</span>
+                        </p>
+
+                        <p>
+                            For detailed configuration steps, please refer to the Configuration section or contact
+                            <span class="mention badge bg-primary bg-opacity-10 text-primary">@Admin Team</span> for assistance.
+                        </p>
+
+                        <h3 id="section-first-steps" class="mt-4">First Steps</h3>
+                        <p>
+                            After configuration, here are the recommended first steps:
+                        </p>
+                        <ul>
+                            <li>Create your first entity and locations</li>
+                            <li>Import or add your IT assets</li>
+                            <li>Set up user accounts and profiles</li>
+                            <li>Configure email notifications</li>
+                            <li>Customize the interface to match your branding <span class="emoji">🎨</span></li>
+                        </ul>
+
+                        <h2 id="section-getting-help" class="mt-5 pt-3">Getting Help</h2>
+                        <p>
+                            If you need assistance, there are several resources available:
+                        </p>
+                        <ul>
+                            <li>Browse this knowledge base for detailed documentation</li>
+                            <li>Join the GLPI community forums</li>
+                            <li>Contact <span class="mention badge bg-primary bg-opacity-10 text-primary">@Support Team</span> through the ticketing system</li>
+                            <li>Check out video tutorials on our YouTube channel <span class="emoji">📺</span></li>
+                        </ul>
+                        </ul>
+                    </article>
+
+                    <!-- Right Sidebar: Scrollspy Navigation (Absolute positioned) -->
+                    <aside class="kb-scrollspy bg-white bg-opacity-85 p-4 overflow-auto position-absolute" style="right: 0; top: 0; bottom: 0; width: 240px;">
+                        <h4 class="text-uppercase small fw-semibold text-secondary mb-3">On This Page</h4>
+                        <ul class="scrollspy-nav list-unstyled">
+                            <li><a href="#section-introduction" class="nav-link active py-1 text-secondary small">Introduction</a></li>
+                            <li><a href="#section-what-is-glpi" class="nav-link level-3 py-1 ps-3 text-secondary small">What is GLPI?</a></li>
+                            <li><a href="#section-installation" class="nav-link py-1 text-secondary small">Installation</a></li>
+                            <li><a href="#section-system-requirements" class="nav-link level-3 py-1 ps-3 text-secondary small">System Requirements</a></li>
+                            <li><a href="#section-configuration" class="nav-link py-1 text-secondary small">Initial Configuration</a></li>
+                            <li><a href="#section-first-steps" class="nav-link level-3 py-1 ps-3 text-secondary small">First Steps</a></li>
+                            <li><a href="#section-getting-help" class="nav-link py-1 text-secondary small">Getting Help</a></li>
+                        </ul>
+                    </aside>
+
+                    <!-- Comments Panel (Fixed to viewport) -->
+                    <aside class="kb-comments-panel bg-white bg-opacity-85 position-fixed" style="right: 0; top: 0; bottom: 0; width: 300px; height: 100vh;">
+                        <div class="d-flex align-items-center justify-content-between p-4 border-bottom">
+                            <h4 class="text-uppercase small fw-semibold text-secondary mb-0">Comments (3)</h4>
+                            <button class="btn btn-sm btn-link text-secondary" onclick="toggleCommentsPanel()">
+                                <i class="ti ti-x"></i>
+                            </button>
+                        </div>
+                        <div class="kb-comments-list overflow-auto flex-fill">
+                            <div class="kb-comment p-3 border-bottom" data-comment="1">
+                                <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="bg-primary bg-opacity-10 rounded-circle" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; color: rgb(58, 86, 147);">JD</div>
+                                        <div>
+                                            <div class="small fw-semibold text-dark">Jane Doe</div>
+                                            <div class="small text-secondary">2 hours ago</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-link text-success p-0" title="Mark as resolved">
+                                        <i class="ti ti-check"></i>
+                                    </button>
+                                </div>
+                                <p class="small text-secondary mb-0">Great introduction! This clearly explains the purpose of GLPI. Maybe we should add info about enterprise support options?</p>
+                            </div>
+
+                            <div class="kb-comment p-3 border-bottom resolved" data-comment="2">
+                                <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="bg-success bg-opacity-10 rounded-circle" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; color: #15803d;">MB</div>
+                                        <div>
+                                            <div class="small fw-semibold text-dark">Mark Brown</div>
+                                            <div class="small text-secondary">1 hour ago</div>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-success">Resolved</span>
+                                </div>
+                                <p class="small text-secondary mb-0">Should we mention compatibility with <span class="mention badge bg-primary bg-opacity-10 text-primary">@John Smith</span>'s infrastructure? PHP version requirement is crucial for our setup.</p>
+                            </div>
+
+                            <div class="kb-comment p-3 border-bottom" data-comment="3">
+                                <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="bg-warning bg-opacity-10 rounded-circle" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; color: #b45309;">LP</div>
+                                        <div>
+                                            <div class="small fw-semibold text-dark">Laura Park</div>
+                                            <div class="small text-secondary">15 minutes ago</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-link text-success p-0" title="Mark as resolved">
+                                        <i class="ti ti-check"></i>
+                                    </button>
+                                </div>
+                                <p class="small text-secondary mb-0">Configuration section needs more details. The step-by-step guide should be easier to follow for non-technical users.</p>
+                            </div>
+                        </div>
+                        <div class="kb-comment-compose border-top p-3">
+                            <textarea class="form-control form-control-sm mb-2" rows="3" placeholder="Add a comment..."></textarea>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button class="btn btn-sm btn-outline-secondary">Cancel</button>
+                                <button class="btn btn-sm btn-primary">Comment</button>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- History Panel (Fixed to viewport) -->
+                    <aside class="kb-history-panel bg-white bg-opacity-85 position-fixed" style="right: 0; top: 0; bottom: 0; width: 320px; height: 100vh;">
+                        <div class="d-flex align-items-center justify-content-between p-4 border-bottom">
+                            <h4 class="text-uppercase small fw-semibold text-secondary mb-0">Version History</h4>
+                            <button class="btn btn-sm btn-link text-secondary" onclick="toggleHistoryPanel()">
+                                <i class="ti ti-x"></i>
+                            </button>
+                        </div>
+                        <div class="kb-history-list overflow-auto p-3">
+                            <ul class="steps steps-vertical">
+                                <li class="step-item">
+                                    <div class="small fw-semibold text-dark">Current Version</div>
+                                    <div class="text-secondary small mt-2">
+                                        <p class="mb-2">Updated by <span class="mention badge bg-primary bg-opacity-10 text-primary">@John Doe</span><span class="ms-1 mb-0 text-muted small">5 minutes ago</span></p>
+                                    </div>
+                                </li>
+                                <li class="step-item event-item">
+                                    <div class="small fw-semibold text-dark d-flex align-items-center gap-2">
+                                        <i class="ti ti-share-2 text-info"></i>
+                                        Document shared publicly
+                                    </div>
+                                    <div class="text-secondary small mt-2">
+                                        <p class="mb-2">Shared by <span class="mention badge bg-primary bg-opacity-10 text-primary">@Jane Smith</span><span class="ms-1 mb-0 text-muted small">45 minutes ago</span></p>
+                                    </div>
+                                </li>
+                                <li class="step-item" data-version="3">
+                                    <div class="small fw-semibold text-dark d-flex align-items-center justify-content-between">
+                                        Version 3
+                                        <button class="btn btn-sm btn-outline-primary ms-2" onclick="revertToVersion(3)">Revert</button>
+                                    </div>
+                                    <div class="text-secondary small mt-2">
+                                        <p class="mb-2">Updated by <span class="mention badge bg-primary bg-opacity-10 text-primary">@Jane Smith</span><span class="ms-1 mb-0 text-muted small">1 hour ago</span></p>
+                                    </div>
+                                </li>
+                                <li class="step-item event-item">
+                                    <div class="small fw-semibold text-dark d-flex align-items-center gap-2">
+                                        <i class="ti ti-lock text-warning"></i>
+                                        Permissions changed
+                                    </div>
+                                    <div class="text-secondary small mt-2">
+                                        <p class="mb-2">Modified by <span class="mention badge bg-primary bg-opacity-10 text-primary">@Admin</span><span class="ms-1 mb-0 text-muted small">2 hours ago</span></p>
+                                        <p class="mb-0 text-muted">Added write access for <span class="mention badge bg-primary bg-opacity-10 text-primary">@Documentation Team</span></p>
+                                    </div>
+                                </li>
+                                <li class="step-item" data-version="2">
+                                    <div class="small fw-semibold text-dark d-flex align-items-center justify-content-between">
+                                        Version 2
+                                        <button class="btn btn-sm btn-outline-primary ms-2" onclick="revertToVersion(2)">Revert</button>
+                                    </div>
+                                    <div class="text-secondary small mt-2">
+                                        <p class="mb-2">Updated by <span class="mention badge bg-primary bg-opacity-10 text-primary">@Mark Johnson</span><span class="ms-1 mb-0 text-muted small">3 hours ago</span></p>
+                                    </div>
+                                </li>
+                                <li class="step-item event-item">
+                                    <div class="small fw-semibold text-dark d-flex align-items-center gap-2">
+                                        <i class="ti ti-users text-success"></i>
+                                        Added to collection
+                                    </div>
+                                    <div class="text-secondary small mt-2">
+                                        <p class="mb-2">Added by <span class="mention badge bg-primary bg-opacity-10 text-primary">@John Doe</span><span class="ms-1 mb-0 text-muted small">6 hours ago</span></p>
+                                        <p class="mb-0 text-muted">Added to "Getting Started" collection</p>
+                                    </div>
+                                </li>
+                                <li class="step-item" data-version="1">
+                                    <div class="small fw-semibold text-dark d-flex align-items-center justify-content-between">
+                                        Version 1
+                                        <button class="btn btn-sm btn-outline-primary ms-2" onclick="revertToVersion(1)">Revert</button>
+                                    </div>
+                                    <div class="text-secondary small mt-2">
+                                        <p class="mb-2">Created by <span class="mention badge bg-primary bg-opacity-10 text-primary">@Admin</span><span class="ms-1 mb-0 text-muted small">1 day ago</span></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </aside>
+        </main>
+    </div>
+
+    <!-- Add-child Button Template -->
+    <template id="doc-add-child-template">
+        <div class="doc-add-child">
+            <button class="btn btn-sm p-0" type="button" aria-label="Add sub-document">
+                <i class="ti ti-plus"></i>
+            </button>
+        </div>
+    </template>
+
+    <!-- Document Action Menu Template -->
+    <template id="doc-action-menu-template">
+        <div class="doc-action-menu dropdown">
+            <button class="btn btn-sm p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="ti ti-dots"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#" onclick="toggleHistoryPanel(); return false;"><i class="ti ti-history me-2"></i>View History</a></li>
+                <li><a class="dropdown-item" href="#" onclick="toggleCommentsPanel(); return false;"><i class="ti ti-message-circle me-2"></i>Comments</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#"><i class="ti ti-star me-2"></i>Add to favorites</a></li>
+                <li><a class="dropdown-item" href="#"><i class="ti ti-printer me-2"></i>Print</a></li>
+                <li class="dropend">
+                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="ti ti-download me-2"></i>Download as...
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="ti ti-file-code me-2"></i>HTML</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="ti ti-file-type-pdf me-2"></i>PDF</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="ti ti-markdown me-2"></i>Markdown</a></li>
+                    </ul>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#"><i class="ti ti-share me-2"></i>Share Public Link</a></li>
+                <li><a class="dropdown-item" href="#"><i class="ti ti-lock me-2"></i>Permissions</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#"><i class="ti ti-trash me-2"></i>Delete permanently</a></li>
+            </ul>
+        </div>
+    </template>
+
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="searchModalLabel">
+                        <i class="ti ti-search me-2"></i>Search Knowledge Base
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Fuzzy Search Input -->
+                    <div class="mb-4">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light border-0">
+                                <i class="ti ti-search text-muted"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-lg border-0 ps-2" id="searchFuzzyInput" 
+                                   placeholder="Type to search... (fuzzy matching enabled)">
+                        </div>
+                        <small class="text-muted d-block mt-2">
+                            <i class="ti ti-info-circle me-1"></i>
+                            Fuzzy search matches partial words and is typo-tolerant
+                        </small>
+                    </div>
+
+                    <!-- Search Results / Recent Searches -->
+                    <div id="searchResults" style="display: none;">
+                        <h6 class="text-muted text-uppercase small fw-semibold mb-3">Search Results</h6>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Installation Guide</h6>
+                                    <small class="text-muted">50% match</small>
+                                </div>
+                                <p class="mb-1 small text-muted">GLPI > Tutorials > Getting Started</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="recentSearches">
+                        <h6 class="text-muted text-uppercase small fw-semibold mb-3">Recent Searches</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="ti ti-clock me-1"></i>installation process
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="ti ti-clock me-1"></i>user permissions
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="ti ti-clock me-1"></i>API documentation
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="ti ti-clock me-1"></i>troubleshooting
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                <i class="ti ti-clock me-1"></i>configuration
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Tips -->
+                    <div class="mt-4 p-3 bg-light rounded">
+                        <h6 class="small fw-semibold mb-2">
+                            <i class="ti ti-bulb me-1 text-warning"></i>Quick Tips
+                        </h6>
+                        <ul class="small mb-0 ps-3">
+                            <li>Use spaces to separate multiple search terms</li>
+                            <li>Fuzzy matching helps find results even with typos</li>
+                            <li>Click recent searches to explore related topics</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
