@@ -325,6 +325,169 @@ function toggleFavorites(event) {
     }
 }
 
+// Scroll to documents section
+function scrollToDocuments(event) {
+    event.preventDefault();
+    const documentsSection = document.getElementById('kb-documents');
+    if (documentsSection) {
+        documentsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+// Document upload functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const dropZone = document.getElementById('documentDropZone');
+    const fileInput = document.getElementById('documentFileInput');
+    const fileList = document.getElementById('documentFileList');
+    const fileListContainer = document.getElementById('fileListContainer');
+    const uploadBtn = document.getElementById('uploadDocumentBtn');
+    let selectedFiles = [];
+
+    if (!dropZone || !fileInput) return;
+
+    // Click to open file browser
+    dropZone.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // Highlight drop zone when dragging over it
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.add('drag-over');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.remove('drag-over');
+        }, false);
+    });
+
+    // Handle dropped files
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleFiles(files);
+    });
+
+    // Handle selected files from file input
+    fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+    });
+
+    function handleFiles(files) {
+        selectedFiles = Array.from(files);
+        displayFiles();
+        uploadBtn.disabled = selectedFiles.length === 0;
+    }
+
+    function displayFiles() {
+        if (selectedFiles.length === 0) {
+            fileList.style.display = 'none';
+            return;
+        }
+
+        fileList.style.display = 'block';
+        fileListContainer.innerHTML = '';
+
+        selectedFiles.forEach((file, index) => {
+            const fileItem = createFileItem(file, index);
+            fileListContainer.appendChild(fileItem);
+        });
+    }
+
+    function createFileItem(file, index) {
+        const div = document.createElement('div');
+        div.className = 'document-file-item';
+
+        const icon = getFileIcon(file.name);
+        const size = formatFileSize(file.size);
+
+        div.innerHTML = `
+            <i class="file-icon ti ${icon.class}" style="color: ${icon.color};"></i>
+            <div class="file-info">
+                <div class="file-name">${file.name}</div>
+                <div class="file-size">${size}</div>
+            </div>
+            <button type="button" class="btn btn-sm btn-link text-danger remove-file" data-index="${index}">
+                <i class="ti ti-x"></i>
+            </button>
+        `;
+
+        div.querySelector('.remove-file').addEventListener('click', () => {
+            removeFile(index);
+        });
+
+        return div;
+    }
+
+    function removeFile(index) {
+        selectedFiles.splice(index, 1);
+        displayFiles();
+        uploadBtn.disabled = selectedFiles.length === 0;
+    }
+
+    function getFileIcon(filename) {
+        const ext = filename.split('.').pop().toLowerCase();
+        const icons = {
+            pdf: { class: 'ti-file-type-pdf', color: '#dc2626' },
+            doc: { class: 'ti-file-type-doc', color: '#2563eb' },
+            docx: { class: 'ti-file-type-doc', color: '#2563eb' },
+            xls: { class: 'ti-file-spreadsheet', color: '#16a34a' },
+            xlsx: { class: 'ti-file-spreadsheet', color: '#16a34a' },
+            zip: { class: 'ti-file-zip', color: '#f59e0b' },
+            txt: { class: 'ti-file-text', color: '#0891b2' }
+        };
+        return icons[ext] || { class: 'ti-file', color: '#6b7280' };
+    }
+
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+
+    // Upload button handler
+    uploadBtn.addEventListener('click', () => {
+        if (selectedFiles.length === 0) return;
+        
+        const description = document.getElementById('documentDescription').value;
+        console.log('Uploading files:', selectedFiles);
+        console.log('Description:', description);
+        
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('addDocumentModal'));
+        if (modal) modal.hide();
+        
+        // Reset form
+        selectedFiles = [];
+        fileInput.value = '';
+        document.getElementById('documentDescription').value = '';
+        displayFiles();
+    });
+
+    // Reset when modal is closed
+    document.getElementById('addDocumentModal').addEventListener('hidden.bs.modal', () => {
+        selectedFiles = [];
+        fileInput.value = '';
+        document.getElementById('documentDescription').value = '';
+        displayFiles();
+        uploadBtn.disabled = true;
+    });
+});
+
 // Search Modal functionality
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchFuzzyInput');

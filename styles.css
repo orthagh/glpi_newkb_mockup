@@ -746,3 +746,107 @@ body {
     color: #f59e0b;
 }
 
+/* Documents Footer Styling */
+.kb-documents-footer {
+    margin-bottom: 2rem;
+}
+
+.kb-documents-link {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.kb-documents-link:hover {
+    color: #3a5693 !important;
+}
+
+.kb-document-badge {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.kb-document-badge:hover {
+    background-color: #3a5693 !important;
+    color: #ffffff !important;
+    border-color: #3a5693;
+    box-shadow: 0 2px 4px rgba(58, 86, 147, 0.2);
+}
+
+.kb-document-badge:hover i {
+    color: #ffffff !important;
+}
+
+/* Add Document Modal Styling */
+.document-drop-zone {
+    border: 2px dashed #d1d5db;
+    border-radius: 0.75rem;
+    padding: 3rem 2rem;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.document-drop-zone:hover,
+.document-drop-zone.drag-over {
+    border-color: #3a5693;
+    background-color: #e8eef5;
+}
+
+.document-drop-zone.drag-over {
+    border-style: solid;
+    box-shadow: 0 0 0 4px rgba(58, 86, 147, 0.1);
+}
+
+.drop-zone-content i {
+    transition: transform 0.3s ease;
+}
+
+.document-drop-zone:hover .drop-zone-content i {
+    transform: scale(1.1);
+}
+
+.document-file-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.document-file-item {
+    padding: 0.75rem;
+    background-color: #f8f9fa;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.document-file-item .file-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.document-file-item .file-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.document-file-item .file-name {
+    font-weight: 500;
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.document-file-item .file-size {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.document-file-item .remove-file {
+    flex-shrink: 0;
+}
+

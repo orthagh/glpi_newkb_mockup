@@ -193,6 +193,9 @@
                             <span><i class="ti ti-user"></i> Created by <span class="mention badge bg-primary bg-opacity-10 text-primary">@John Doe</span></span>
                             <span><i class="ti ti-clock"></i> Updated 2 hours ago</span>
                             <span><i class="ti ti-eye"></i> 1,234 views</span>
+                            <a href="#kb-documents" class="text-secondary text-decoration-none kb-documents-link" onclick="scrollToDocuments(event)">
+                                <i class="ti ti-paperclip"></i> 5 documents
+                            </a>
                         </div>
 
                         <p class="lead">
@@ -272,7 +275,41 @@
                             <li>Contact <span class="mention badge bg-primary bg-opacity-10 text-primary">@Support Team</span> through the ticketing system</li>
                             <li>Check out video tutorials on our YouTube channel <span class="emoji">📺</span></li>
                         </ul>
-                        </ul>
+
+                        <!-- Documents Section -->
+                        <div id="kb-documents" class="kb-documents-footer mt-5 pt-4 border-top">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h3 class="h5 fw-semibold mb-0">
+                                    <i class="ti ti-paperclip me-2"></i>Documents
+                                </h3>
+                            </div>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                    <i class="ti ti-file-type-pdf text-danger"></i>
+                                    <span>GLPI Installation Guide.pdf</span>
+                                </a>
+                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                    <i class="ti ti-file-type-doc text-primary"></i>
+                                    <span>Quick Start Checklist.docx</span>
+                                </a>
+                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                    <i class="ti ti-file-zip text-warning"></i>
+                                    <span>Configuration Templates.zip</span>
+                                </a>
+                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                    <i class="ti ti-file-spreadsheet text-success"></i>
+                                    <span>Asset Inventory Template.xlsx</span>
+                                </a>
+                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                    <i class="ti ti-file-text text-info"></i>
+                                    <span>System Requirements.txt</span>
+                                </a>
+                            </div>
+
+                            <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#addDocumentModal">
+                                <i class="ti ti-plus me-1"></i>Add Document
+                            </button>
+                        </div>
                     </article>
 
                     <!-- Right Sidebar: Scrollspy Navigation (Absolute positioned) -->
@@ -565,6 +602,52 @@
                             <li>Click recent searches to explore related topics</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Document Modal -->
+    <div class="modal fade" id="addDocumentModal" tabindex="-1" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDocumentModalLabel">
+                        <i class="ti ti-upload me-2"></i>Add Document
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <!-- Drop Zone -->
+                    <div class="document-drop-zone mb-4" id="documentDropZone">
+                        <div class="drop-zone-content text-center">
+                            <i class="ti ti-cloud-upload" style="font-size: 3rem; color: #3a5693;"></i>
+                            <h5 class="mt-3 mb-2">Drop files here or click to browse</h5>
+                            <p class="text-muted small mb-3">Support for PDF, Word, Excel, ZIP and text files</p>
+                            <input type="file" id="documentFileInput" class="d-none" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.zip,.txt">
+                            <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('documentFileInput').click()">
+                                <i class="ti ti-folder-open me-1"></i>Browse Files
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- File List -->
+                    <div id="documentFileList" class="document-file-list" style="display: none;">
+                        <h6 class="small fw-semibold text-secondary text-uppercase mb-3">Selected Files</h6>
+                        <div id="fileListContainer" class="d-flex flex-column gap-2"></div>
+                    </div>
+
+                    <!-- Description Field -->
+                    <div class="mt-4">
+                        <label for="documentDescription" class="form-label small fw-semibold">Description (optional)</label>
+                        <textarea class="form-control" id="documentDescription" rows="3" placeholder="Add a description for these documents..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="uploadDocumentBtn" disabled>
+                        <i class="ti ti-upload me-1"></i>Upload Documents
+                    </button>
                 </div>
             </div>
         </div>
