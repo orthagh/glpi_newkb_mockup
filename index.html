@@ -17,9 +17,12 @@
         <!-- Left Sidebar: Document Tree -->
         <aside class="kb-sidebar d-flex flex-column">
             <div class="kb-sidebar-content flex-fill overflow-auto p-2">
-                <button type="button" class="btn btn-sm btn-link text-secondary p-0 ms-auto kb-sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">
-                    <i class="ti ti-layout-sidebar-left-collapse"></i>
-                </button>
+                <!-- Sidebar Toggle Button -->
+                <div class="px-2 pt-2 pb-1 d-flex">
+                    <button type="button" class="btn btn-sm btn-link text-secondary p-0 ms-auto kb-sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">
+                        <i class="ti ti-layout-sidebar-left-collapse"></i>
+                    </button>
+                </div>
                 <!-- Search -->
                 <div class="px-2 pt-2 pb-1">
                     <a href="#" class="doc-tree-link d-flex align-items-center text-decoration-none rounded gap-2 px-0 py-1" data-bs-toggle="modal" data-bs-target="#searchModal">
