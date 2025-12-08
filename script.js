@@ -334,6 +334,33 @@ function scrollToDocuments(event) {
     }
 }
 
+// Toggle sidebar visibility
+function toggleSidebar() {
+    const sidebar = document.querySelector('.kb-sidebar');
+    const body = document.body;
+    
+    if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        body.classList.remove('sidebar-collapsed');
+    } else {
+        sidebar.classList.add('collapsed');
+        body.classList.add('sidebar-collapsed');
+    }
+}
+
+// Close sidebar when clicking outside (if hovering)
+document.addEventListener('click', (e) => {
+    const sidebar = document.querySelector('.kb-sidebar');
+    
+    if (!sidebar || !sidebar.classList.contains('collapsed')) return;
+    
+    // Check if click is outside sidebar
+    if (!sidebar.contains(e.target)) {
+        sidebar.classList.add('collapsed');
+        document.body.classList.add('sidebar-collapsed');
+    }
+});
+
 // Document upload functionality
 document.addEventListener('DOMContentLoaded', () => {
     const dropZone = document.getElementById('documentDropZone');
