@@ -450,7 +450,29 @@
                 <li><a class="dropdown-item" href="#" onclick="toggleHistoryPanel(); return false;"><i class="ti ti-history me-2"></i>View History</a></li>
                 <li><a class="dropdown-item" href="#" onclick="toggleCommentsPanel(); return false;"><i class="ti ti-message-circle me-2"></i>Comments</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#"><i class="ti ti-star me-2"></i>Add to favorites</a></li>
+                <li>
+                    <a class="dropdown-item favorites-toggle-link" href="#" onclick="toggleFavorites(event); return false;">
+                        <div class="d-flex align-items-center justify-content-between w-100">
+                            <span><i class="ti ti-star me-2"></i>Add to favorites</span>
+                            <div class="favorites-toggle-switch">
+                                <input type="checkbox" class="favorites-toggle-checkbox">
+                                <label class="favorites-toggle-label"></label>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item faq-toggle-link" href="#" onclick="toggleFAQ(event); return false;">
+                        <div class="d-flex align-items-center justify-content-between w-100">
+                            <span><i class="ti ti-bookmark me-2"></i>Add to FAQ</span>
+                            <div class="faq-toggle-switch">
+                                <input type="checkbox" class="faq-toggle-checkbox">
+                                <label class="faq-toggle-label"></label>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#"><i class="ti ti-printer me-2"></i>Print</a></li>
                 <li class="dropend">
                     <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">

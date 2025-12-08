@@ -283,6 +283,48 @@ function revertToVersion(versionId) {
     console.log(`Reverted to version ${versionId}`);
 }
 
+// Toggle article in/out of FAQ
+function toggleFAQ(event) {
+    event.preventDefault();
+    const link = event.target.closest('.faq-toggle-link');
+    const checkbox = link.querySelector('.faq-toggle-checkbox');
+    
+    if (!checkbox) return;
+    
+    // Toggle checkbox state
+    checkbox.checked = !checkbox.checked;
+    
+    // Update link active state
+    if (checkbox.checked) {
+        link.classList.add('active');
+        console.log('Article added to FAQ');
+    } else {
+        link.classList.remove('active');
+        console.log('Article removed from FAQ');
+    }
+}
+
+// Toggle article in/out of favorites
+function toggleFavorites(event) {
+    event.preventDefault();
+    const link = event.target.closest('.favorites-toggle-link');
+    const checkbox = link.querySelector('.favorites-toggle-checkbox');
+    
+    if (!checkbox) return;
+    
+    // Toggle checkbox state
+    checkbox.checked = !checkbox.checked;
+    
+    // Update link active state
+    if (checkbox.checked) {
+        link.classList.add('active');
+        console.log('Article added to favorites');
+    } else {
+        link.classList.remove('active');
+        console.log('Article removed from favorites');
+    }
+}
+
 // Search Modal functionality
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchFuzzyInput');
