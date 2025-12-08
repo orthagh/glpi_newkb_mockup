@@ -198,8 +198,11 @@
                         <div class="kb-document-meta d-flex align-items-center gap-3 text-secondary small mb-4 pb-4">
                             <span><i class="ti ti-clock"></i> Updated 2 hours ago by <span class="mention badge bg-primary bg-opacity-10 text-primary">@Jane Smith</span></span>
                             <span><i class="ti ti-eye"></i> 1,234 views</span>
-                            <a href="#kb-documents" class="text-secondary text-decoration-none kb-documents-link" onclick="scrollToDocuments(event)">
+                            <a href="#kb-documents" class="text-secondary text-decoration-none kb-documents-link" onclick="scrollToDocuments(event, 'documents')">
                                 <i class="ti ti-paperclip"></i> 5 documents
+                            </a>
+                            <a href="#kb-documents" class="text-secondary text-decoration-none kb-documents-link" onclick="scrollToDocuments(event, 'items')">
+                                <i class="ti ti-link"></i> 3 related items
                             </a>
                         </div>
 
@@ -281,39 +284,72 @@
                             <li>Check out video tutorials on our YouTube channel <span class="emoji">📺</span></li>
                         </ul>
 
-                        <!-- Documents Section -->
-                        <div id="kb-documents" class="kb-documents-footer mt-5 pt-4 border-top">
-                            <div class="d-flex align-items-center justify-content-between mb-3">
-                                <h3 class="h5 fw-semibold mb-0">
-                                    <i class="ti ti-paperclip me-2"></i>Documents
-                                </h3>
-                            </div>
-                            <div class="d-flex flex-wrap gap-2">
-                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
-                                    <i class="ti ti-file-type-pdf text-danger"></i>
-                                    <span>GLPI Installation Guide.pdf</span>
-                                </a>
-                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
-                                    <i class="ti ti-file-type-doc text-primary"></i>
-                                    <span>Quick Start Checklist.docx</span>
-                                </a>
-                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
-                                    <i class="ti ti-file-zip text-warning"></i>
-                                    <span>Configuration Templates.zip</span>
-                                </a>
-                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
-                                    <i class="ti ti-file-spreadsheet text-success"></i>
-                                    <span>Asset Inventory Template.xlsx</span>
-                                </a>
-                                <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
-                                    <i class="ti ti-file-text text-info"></i>
-                                    <span>System Requirements.txt</span>
-                                </a>
-                            </div>
+                        <!-- Documents & Related Items Section -->
+                        <div id="kb-documents" class="kb-documents-footer mt-5 pt-4">
+                            <ul class="nav nav-underline kb-footer-nav mb-3" id="kbFooterTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="kb-documents-tab-btn" data-bs-toggle="tab" data-bs-target="#kb-documents-tab" type="button" role="tab" aria-controls="kb-documents-tab" aria-selected="true" data-footer-tab="documents">
+                                        <i class="ti ti-paperclip me-1"></i>Documents <span class="badge bg-secondary bg-opacity-25 text-dark ms-1">5</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="kb-items-tab-btn" data-bs-toggle="tab" data-bs-target="#kb-items-tab" type="button" role="tab" aria-controls="kb-items-tab" aria-selected="false" data-footer-tab="items">
+                                        <i class="ti ti-link me-1"></i>Related items <span class="badge bg-secondary bg-opacity-25 text-dark ms-1">3</span>
+                                    </button>
+                                </li>
+                            </ul>
 
-                            <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#addDocumentModal">
-                                <i class="ti ti-plus me-1"></i>Add Document
-                            </button>
+                            <div class="tab-content kb-footer-tab-content">
+                                <div class="tab-pane fade show active" id="kb-documents-tab" role="tabpanel" aria-labelledby="kb-documents-tab-btn">
+                                    <div class="d-flex flex-wrap gap-2 mb-2">
+                                        <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                            <i class="ti ti-file-type-pdf text-danger"></i>
+                                            <span>GLPI Installation Guide.pdf</span>
+                                        </a>
+                                        <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                            <i class="ti ti-file-type-doc text-primary"></i>
+                                            <span>Quick Start Checklist.docx</span>
+                                        </a>
+                                        <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                            <i class="ti ti-file-zip text-warning"></i>
+                                            <span>Configuration Templates.zip</span>
+                                        </a>
+                                        <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                            <i class="ti ti-file-spreadsheet text-success"></i>
+                                            <span>Asset Inventory Template.xlsx</span>
+                                        </a>
+                                        <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                            <i class="ti ti-file-text text-info"></i>
+                                            <span>System Requirements.txt</span>
+                                        </a>
+                                    </div>
+
+                                    <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#addDocumentModal">
+                                        <i class="ti ti-plus me-1"></i>Add Document
+                                    </button>
+                                </div>
+
+                                <div class="tab-pane fade" id="kb-items-tab" role="tabpanel" aria-labelledby="kb-items-tab-btn">
+                                    <div class="d-flex flex-wrap gap-2 mb-2">
+                                        <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                            <i class="ti ti-device-laptop text-primary"></i>
+                                            <span>Laptop-23</span>
+                                        </a>
+                                        <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                            <i class="ti ti-ticket text-warning"></i>
+                                            <span>Ticket #4821</span>
+                                        </a>
+                                        <a href="#" class="kb-document-badge badge bg-light text-dark d-flex align-items-center gap-2 text-decoration-none">
+                                            <i class="ti ti-briefcase text-success"></i>
+                                            <span>Project: Migration</span>
+                                        </a>
+                                    </div>
+
+                                    <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#addDocumentModal">
+                                        <i class="ti ti-link me-1"></i>Link to another item
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </article>
 

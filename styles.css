@@ -402,6 +402,60 @@ body {
     border-bottom: 1px solid rgba(230, 233, 239, 0.5);
 }
 
+/* Footer tabs (documents / related items) */
+.kb-footer-nav {
+    gap: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.25rem;
+}
+
+.kb-footer-nav .nav-link {
+    color: #475569;
+    border: none;
+    border-radius: 0;
+    padding: 0.45rem 0.25rem;
+    margin-right: 0;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.kb-footer-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35rem;
+    height: 2px;
+    background: transparent;
+    transition: background 0.2s ease;
+}
+
+.kb-footer-nav .nav-link:hover {
+    color: #0f172a;
+}
+
+.kb-footer-nav .nav-link:hover::after {
+    background: #cbd5e1;
+}
+
+.kb-footer-nav .nav-link.active {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.kb-footer-nav .nav-link.active::after {
+    background: #3a5693;
+}
+
+.kb-related-list .list-group-item {
+    border-color: #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.kb-related-list .list-group-item:hover {
+    background: #f8f9fa;
+}
+
 .editor-mode .kb-document {
     outline: 2px dashed rgba(203, 213, 225, 0.5);
     outline-offset: -2px;

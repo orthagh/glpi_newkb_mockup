@@ -325,13 +325,21 @@ function toggleFavorites(event) {
     }
 }
 
-// Scroll to documents section
-function scrollToDocuments(event) {
-    event.preventDefault();
+// Scroll to footer and optionally activate a specific tab (documents or related items)
+function scrollToDocuments(event, targetTab = 'documents') {
+    if (event) event.preventDefault();
+
     const documentsSection = document.getElementById('kb-documents');
-    if (documentsSection) {
-        documentsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!documentsSection) return;
+
+    // Activate the requested footer tab if present
+    const tabTrigger = document.querySelector(`[data-footer-tab="${targetTab}"]`);
+    if (tabTrigger && bootstrap?.Tab) {
+        const tab = bootstrap.Tab.getOrCreateInstance(tabTrigger);
+        tab.show();
     }
+
+    documentsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 // Toggle sidebar visibility
