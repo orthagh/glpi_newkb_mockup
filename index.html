@@ -532,18 +532,20 @@
 
     <!-- Document Action Menu Template -->
     <template id="doc-action-menu-template">
-        <div class="doc-action-menu dropdown">
+        <div class="doc-action-menu dropdown" data-bs-auto-close="outside">
             <button class="btn btn-sm p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="ti ti-dots"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item" href="#" onclick="toggleHistoryPanel(); return false;"><i class="ti ti-history me-2"></i>View History</a></li>
                 <li><a class="dropdown-item" href="#" onclick="toggleCommentsPanel(); return false;"><i class="ti ti-message-circle me-2"></i>Comments</a></li>
+                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#permissionsModal"><i class="ti ti-lock me-2"></i>Permissions and sharing</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <a class="dropdown-item favorites-toggle-link" href="#" onclick="toggleFavorites(event); return false;">
+                        <i class="ti ti-star me-2"></i>
                         <div class="d-flex align-items-center justify-content-between w-100">
-                            <span><i class="ti ti-star me-2"></i>Add to favorites</span>
+                            <span>Add to favorites</span>
                             <div class="favorites-toggle-switch">
                                 <input type="checkbox" class="favorites-toggle-checkbox">
                                 <label class="favorites-toggle-label"></label>
@@ -553,8 +555,9 @@
                 </li>
                 <li>
                     <a class="dropdown-item faq-toggle-link" href="#" onclick="toggleFAQ(event); return false;">
+                        <i class="ti ti-bookmark me-2"></i>
                         <div class="d-flex align-items-center justify-content-between w-100">
-                            <span><i class="ti ti-bookmark me-2"></i>Add to FAQ</span>
+                            <span>Add to FAQ</span>
                             <div class="faq-toggle-switch">
                                 <input type="checkbox" class="faq-toggle-checkbox">
                                 <label class="faq-toggle-label"></label>
@@ -564,8 +567,8 @@
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#"><i class="ti ti-printer me-2"></i>Print</a></li>
-                <li class="dropend">
-                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                <li
+                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                         <i class="ti ti-download me-2"></i>Download as...
                     </a>
                     <ul class="dropdown-menu">
@@ -574,9 +577,6 @@
                         <li><a class="dropdown-item" href="#"><i class="ti ti-markdown me-2"></i>Markdown</a></li>
                     </ul>
                 </li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#"><i class="ti ti-share me-2"></i>Share Public Link</a></li>
-                <li><a class="dropdown-item" href="#"><i class="ti ti-lock me-2"></i>Permissions</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" href="#"><i class="ti ti-trash me-2"></i>Delete permanently</a></li>
             </ul>
@@ -701,6 +701,53 @@
                     <button type="button" class="btn btn-primary" id="uploadDocumentBtn" disabled>
                         <i class="ti ti-upload me-1"></i>Upload Documents
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Permissions Modal -->
+    <div class="modal fade" id="permissionsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <ul class="nav nav-underline kb-footer-nav flex-fill mb-0" id="permissionsTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="permissions-tab-btn" data-bs-toggle="tab" data-bs-target="#permissions-tab" type="button" role="tab" aria-controls="permissions-tab" aria-selected="true">
+                                <i class="ti ti-lock me-1"></i>Permissions
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="sharing-tab-btn" data-bs-toggle="tab" data-bs-target="#sharing-tab" type="button" role="tab" aria-controls="sharing-tab" aria-selected="false">
+                                <i class="ti ti-share me-1"></i>Sharing
+                            </button>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active text-center" id="permissions-tab" role="tabpanel" aria-labelledby="permissions-tab-btn">
+                            <img src="assets/permissions.png" alt="Permissions mockup">
+                        </div>
+                        <div class="tab-pane fade" id="sharing-tab" role="tabpanel" aria-labelledby="sharing-tab-btn">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <div class="form-check form-switch mb-2">
+                                        <input class="form-check-input" type="checkbox" id="shareToggle" checked>
+                                        <label class="form-check-label" for="shareToggle"><i class="ti ti-link text-primary"></i> Enable public sharing</label>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" value="https://glpi.example.com/kb/share/?token=abc123" readonly>
+                                        <button class="btn btn-outline-secondary" type="button"><i class="ti ti-copy"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

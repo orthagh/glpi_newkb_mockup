@@ -666,11 +666,6 @@ body {
     margin-left: auto;
 }
 
-.dropdown-item.dropdown-toggle {
-    display: flex;
-    justify-content: space-between;
-}
-
 .dropend > .dropdown-toggle::after {
     border-left: 0.3em solid;
     border-right: 0;
