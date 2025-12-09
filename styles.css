@@ -475,6 +475,10 @@ body {
     position: relative;
 }
 
+.kb-document {
+    padding-right: calc(var(--scrollspy-width) + 2rem);
+}
+
 .kb-document-wrapper p {
     line-height: 1.7;
     color: #475569;
