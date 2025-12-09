@@ -13,24 +13,45 @@ function toggleTree(button) {
     }
 }
 
+// Open icon editor modal (only if in edit mode)
+function openIconModal() {
+    const wrapper = document.querySelector('.kb-document-wrapper');
+    if (!wrapper.classList.contains('editor-mode')) return;
+
+    const modal = new bootstrap.Modal(document.getElementById('iconEditorModal'));
+    modal.show();
+}
+
 // Toggle edit mode
 function toggleEditMode() {
-    const doc = document.querySelector('.kb-document');
+    const wrapper = document.querySelector('.kb-document-wrapper');
     const btn = event.target.closest('button');
     const icon = btn.querySelector('i');
 
-    doc.classList.toggle('editor-mode');
+    wrapper.classList.toggle('editor-mode');
 
-    if (doc.classList.contains('editor-mode')) {
-        btn.classList.remove('btn-primary');
-        btn.classList.add('btn-success');
+    // Get editable elements
+    const title = wrapper.querySelector('.kb-document-title');
+    const article = wrapper.querySelector('.kb-document');
+
+    if (wrapper.classList.contains('editor-mode')) {
+        btn.classList.remove('btn-outline-secondary');
+        btn.classList.add('btn-primary');
         icon.className = 'ti ti-check';
         btn.innerHTML = '<i class="ti ti-check"></i> Save';
+        
+        // Make content editable
+        title.setAttribute('contenteditable', 'true');
+        article.setAttribute('contenteditable', 'true');
     } else {
-        btn.classList.remove('btn-success');
-        btn.classList.add('btn-primary');
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-outline-secondary');
         icon.className = 'ti ti-edit';
         btn.innerHTML = '<i class="ti ti-edit"></i> Modify';
+        
+        // Remove contenteditable
+        title.removeAttribute('contenteditable');
+        article.removeAttribute('contenteditable');
     }
 }
 
@@ -596,3 +617,132 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Icon editor drop zone functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const dropZone = document.getElementById('iconDropZone');
+    const fileInput = document.getElementById('iconFileInput');
+
+    if (!dropZone || !fileInput) return;
+
+    // Click to open file browser
+    dropZone.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // Highlight drop zone when dragging over it
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.add('drag-over');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.classList.remove('drag-over');
+        }, false);
+    });
+
+    // Handle dropped/selected files
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        handleIconFile(files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        handleIconFile(e.target.files);
+    });
+
+    function handleIconFile(files) {
+        if (files.length > 0) {
+            const file = files[0];
+            console.log(`Icon file selected: ${file.name}`);
+            // Demo only - in a real app, you'd upload or preview the file
+        }
+    }
+});
+
+// Text Selection Popup for Comments
+document.addEventListener('DOMContentLoaded', function() {
+    const popup = document.getElementById('textSelectionPopup');
+    const article = document.querySelector('.kb-document');
+    let selectedText = '';
+
+    document.addEventListener('mouseup', function(e) {
+        // Don't show popup in edit mode
+        const wrapper = document.querySelector('.kb-document-wrapper');
+        if (wrapper && wrapper.classList.contains('editor-mode')) {
+            popup.style.display = 'none';
+            return;
+        }
+
+        const selection = window.getSelection();
+        selectedText = selection.toString().trim();
+
+        // Only show popup if text is selected and within the article
+        if (selectedText && selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            const container = range.commonAncestorContainer;
+            
+            // Check if selection is within article
+            const isInArticle = article && (article.contains(container) || container === article);
+            
+            if (isInArticle && selectedText.length > 0) {
+                const rect = range.getBoundingClientRect();
+                popup.style.display = 'block';
+                popup.style.left = `${rect.left + (rect.width / 2) - (popup.offsetWidth / 2)}px`;
+                popup.style.top = `${rect.top - popup.offsetHeight - 8}px`;
+            } else {
+                popup.style.display = 'none';
+            }
+        } else {
+            popup.style.display = 'none';
+        }
+    });
+
+    // Hide popup when clicking outside
+    document.addEventListener('mousedown', function(e) {
+        if (!popup.contains(e.target)) {
+            const selection = window.getSelection();
+            if (!selection.toString().trim()) {
+                popup.style.display = 'none';
+            }
+        }
+    });
+});
+
+function addCommentFromSelection() {
+    const selection = window.getSelection();
+    const selectedText = selection.toString().trim();
+    
+    if (selectedText) {
+        // Open comments panel
+        toggleCommentsPanel();
+        
+        // Focus on comment textarea
+        setTimeout(() => {
+            const textarea = document.querySelector('.kb-comment-compose textarea');
+            if (textarea) {
+                textarea.focus();
+                textarea.value = `Re: "${selectedText}"\n\n`;
+                textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+            }
+        }, 300);
+        
+        // Hide popup
+        document.getElementById('textSelectionPopup').style.display = 'none';
+        
+        // Clear selection
+        selection.removeAllRanges();
+    }
+}
