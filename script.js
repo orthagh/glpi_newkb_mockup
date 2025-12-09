@@ -13,6 +13,50 @@ function toggleTree(button) {
     }
 }
 
+// Toggle translation mode
+function toggleTranslationMode() {
+    const alert = document.getElementById('translationModeAlert');
+    const wrapper = document.querySelector('.kb-document-wrapper');
+
+    if (alert.style.display === 'none' || alert.classList.contains('d-none')) {
+        // Enable translation mode
+        alert.style.display = 'block';
+        alert.classList.remove('d-none');
+        wrapper.classList.add('translation-mode');
+        setEditMode(true);
+    } else {
+        // Disable translation mode
+        alert.style.display = 'none';
+        alert.classList.add('d-none');
+        wrapper.classList.remove('translation-mode');
+        // Reset to English
+        document.getElementById('selectedLanguage').textContent = 'English';
+        setEditMode(false);
+    }
+}
+
+// Select language in translation mode
+function selectLanguage(lang, event) {
+    event.preventDefault();
+
+    const languageNames = {
+        'en': 'English',
+        'fr': 'Français',
+        'de': 'Deutsch',
+        'es': 'Español',
+        'it': 'Italiano'
+    };
+
+    // Update dropdown button text
+    document.getElementById('selectedLanguage').textContent = languageNames[lang];
+
+    // Update active state in dropdown
+    document.querySelectorAll('#languageDropdown + .dropdown-menu .dropdown-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.target.closest('a').classList.add('active');
+}
+
 // Open icon editor modal (only if in edit mode)
 function openIconModal() {
     const wrapper = document.querySelector('.kb-document-wrapper');
@@ -25,33 +69,36 @@ function openIconModal() {
 // Toggle edit mode
 function toggleEditMode() {
     const wrapper = document.querySelector('.kb-document-wrapper');
-    const btn = event.target.closest('button');
+    const nextState = !wrapper.classList.contains('editor-mode');
+    setEditMode(nextState);
+}
+
+// Apply edit mode state (shared between edit toggle and translation mode)
+function setEditMode(enable) {
+    const wrapper = document.querySelector('.kb-document-wrapper');
+    const btn = document.querySelector('.kb-actions button[onclick="toggleEditMode()"]');
+    if (!wrapper || !btn) return;
+
     const icon = btn.querySelector('i');
-
-    wrapper.classList.toggle('editor-mode');
-
-    // Get editable elements
     const title = wrapper.querySelector('.kb-document-title');
     const article = wrapper.querySelector('.kb-document');
 
-    if (wrapper.classList.contains('editor-mode')) {
+    wrapper.classList.toggle('editor-mode', enable);
+
+    if (enable) {
         btn.classList.remove('btn-outline-secondary');
         btn.classList.add('btn-primary');
-        icon.className = 'ti ti-check';
+        if (icon) icon.className = 'ti ti-check';
         btn.innerHTML = '<i class="ti ti-check"></i> Save';
-        
-        // Make content editable
-        title.setAttribute('contenteditable', 'true');
-        article.setAttribute('contenteditable', 'true');
+        title?.setAttribute('contenteditable', 'true');
+        article?.setAttribute('contenteditable', 'true');
     } else {
         btn.classList.remove('btn-primary');
         btn.classList.add('btn-outline-secondary');
-        icon.className = 'ti ti-edit';
+        if (icon) icon.className = 'ti ti-edit';
         btn.innerHTML = '<i class="ti ti-edit"></i> Modify';
-        
-        // Remove contenteditable
-        title.removeAttribute('contenteditable');
-        article.removeAttribute('contenteditable');
+        title?.removeAttribute('contenteditable');
+        article?.removeAttribute('contenteditable');
     }
 }
 
@@ -309,12 +356,12 @@ function toggleFAQ(event) {
     event.preventDefault();
     const link = event.target.closest('.faq-toggle-link');
     const checkbox = link.querySelector('.faq-toggle-checkbox');
-    
+
     if (!checkbox) return;
-    
+
     // Toggle checkbox state
     checkbox.checked = !checkbox.checked;
-    
+
     // Update link active state
     if (checkbox.checked) {
         link.classList.add('active');
@@ -330,12 +377,12 @@ function toggleFavorites(event) {
     event.preventDefault();
     const link = event.target.closest('.favorites-toggle-link');
     const checkbox = link.querySelector('.favorites-toggle-checkbox');
-    
+
     if (!checkbox) return;
-    
+
     // Toggle checkbox state
     checkbox.checked = !checkbox.checked;
-    
+
     // Update link active state
     if (checkbox.checked) {
         link.classList.add('active');
@@ -367,7 +414,7 @@ function scrollToDocuments(event, targetTab = 'documents') {
 function toggleSidebar() {
     const sidebar = document.querySelector('.kb-sidebar');
     const body = document.body;
-    
+
     if (sidebar.classList.contains('collapsed')) {
         sidebar.classList.remove('collapsed');
         body.classList.remove('sidebar-collapsed');
@@ -380,9 +427,9 @@ function toggleSidebar() {
 // Close sidebar when clicking outside (if hovering)
 document.addEventListener('click', (e) => {
     const sidebar = document.querySelector('.kb-sidebar');
-    
+
     if (!sidebar || !sidebar.classList.contains('collapsed')) return;
-    
+
     // Check if click is outside sidebar
     if (!sidebar.contains(e.target)) {
         sidebar.classList.add('collapsed');
@@ -518,15 +565,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Upload button handler
     uploadBtn.addEventListener('click', () => {
         if (selectedFiles.length === 0) return;
-        
+
         const description = document.getElementById('documentDescription').value;
         console.log('Uploading files:', selectedFiles);
         console.log('Description:', description);
-        
+
         // Close modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('addDocumentModal'));
         if (modal) modal.hide();
-        
+
         // Reset form
         selectedFiles = [];
         fileInput.value = '';
@@ -693,10 +740,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedText && selection.rangeCount > 0) {
             const range = selection.getRangeAt(0);
             const container = range.commonAncestorContainer;
-            
+
             // Check if selection is within article
             const isInArticle = article && (article.contains(container) || container === article);
-            
+
             if (isInArticle && selectedText.length > 0) {
                 const rect = range.getBoundingClientRect();
                 popup.style.display = 'block';
@@ -724,11 +771,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function addCommentFromSelection() {
     const selection = window.getSelection();
     const selectedText = selection.toString().trim();
-    
+
     if (selectedText) {
         // Open comments panel
         toggleCommentsPanel();
-        
+
         // Focus on comment textarea
         setTimeout(() => {
             const textarea = document.querySelector('.kb-comment-compose textarea');
@@ -738,10 +785,10 @@ function addCommentFromSelection() {
                 textarea.setSelectionRange(textarea.value.length, textarea.value.length);
             }
         }, 300);
-        
+
         // Hide popup
         document.getElementById('textSelectionPopup').style.display = 'none';
-        
+
         // Clear selection
         selection.removeAllRanges();
     }

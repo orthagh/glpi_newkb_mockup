@@ -198,9 +198,45 @@
                             <h1 class="display-5 fw-bold mb-0 kb-document-title">Getting Started with GLPI</h1>
                         </div>
 
+                         <!-- Translation Mode Alert -->
+                        <div id="translationModeAlert" class="kb-translation-alert alert position-relative d-none" role="alert" style="display: none !important;">
+                            <div class="kb-translation-actions">
+                                <a href="#" class="kb-translation-action kb-translation-delete btn btn-ghost-danger btn-sm" onclick="toggleTranslationMode(); return false;" title="Delete current translation" aria-label="Delete current translation">
+                                    <i class="ti ti-trash"></i>
+                                </a>
+                                <a href="#" class="kb-translation-action kb-translation-return btn btn-ghost-secondary btn-sm" onclick="toggleTranslationMode(); return false;" title="Return to original document" aria-label="Return to original document">
+                                    <i class="ti ti-x"></i>
+                                </a>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between gap-3 pe-4 flex-wrap">
+                                <div class="d-flex align-items-center gap-2 flex-wrap">
+                                    <i class="ti ti-language"></i>
+                                    <span>Translation mode enabled; currently editing </span>
+                                    <div class="dropdown d-inline-block">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span id="selectedLanguage">English</span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                                            <li><a class="dropdown-item d-flex justify-content-between align-items-center active" href="#" onclick="selectLanguage('en', event)">English<i class="ti ti-check"></i></a></li>
+                                            <li><a class="dropdown-item d-flex justify-content-between align-items-center" href="#" onclick="selectLanguage('fr', event)">Français<i class="ti ti-check"></i></a></li>
+                                            <li><a class="dropdown-item d-flex justify-content-between align-items-center" href="#" onclick="selectLanguage('de', event)">Deutsch</a></li>
+                                            <li><a class="dropdown-item d-flex justify-content-between align-items-center" href="#" onclick="selectLanguage('es', event)">Español<i class="ti ti-check"></i></a></li>
+                                            <li><a class="dropdown-item d-flex justify-content-between align-items-center" href="#" onclick="selectLanguage('it', event)">Italiano</a></li>
+                                        </ul>
+                                    </div>
+                                    <span>language.</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="kb-document-meta d-flex align-items-center gap-3 text-secondary small mb-4 pb-4">
                             <span><i class="ti ti-clock"></i> Updated 2 hours ago by <span class="mention badge bg-primary bg-opacity-10 text-primary">@Jane Smith</span></span>
                             <span><i class="ti ti-eye"></i> 1,234 views</span>
+                            <a href="#" class="text-secondary text-decoration-none" onclick="toggleTranslationMode(); return false;">
+                                <span class="kb-translations-count">
+                                    <i class="ti ti-language"></i> 4 translations
+                                </span>
+                            </a>
                             <a href="#kb-documents" class="text-secondary text-decoration-none kb-documents-link" onclick="scrollToDocuments(event, 'documents')">
                                 <i class="ti ti-paperclip"></i> 5 documents
                             </a>
@@ -540,6 +576,7 @@
                 <li><a class="dropdown-item" href="#" onclick="toggleHistoryPanel(); return false;"><i class="ti ti-history me-2"></i>View History</a></li>
                 <li><a class="dropdown-item" href="#" onclick="toggleCommentsPanel(); return false;"><i class="ti ti-message-circle me-2"></i>Comments</a></li>
                 <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#permissionsModal"><i class="ti ti-lock me-2"></i>Permissions and sharing</a></li>
+                <li><a class="dropdown-item" href="#" onclick="toggleTranslationMode(); return false;"><i class="ti ti-language me-2"></i>Translation mode</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <a class="dropdown-item favorites-toggle-link" href="#" onclick="toggleFavorites(event); return false;">

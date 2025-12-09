@@ -566,6 +566,79 @@ body {
     vertical-align: middle;
 }
 
+/* Translation Mode */
+.kb-translation-alert {
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    animation: slideDown 0.3s ease;
+    max-width: 70%;
+    position: relative;
+    padding-right: 5.5rem;
+}
+
+.kb-translation-alert i {
+    color: #0284c7;
+    font-size: 1.1rem;
+}
+
+.kb-translation-alert .form-select-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    border: 1px solid #bae6fd;
+}
+
+.kb-translation-alert a {
+    color: #0284c7;
+    font-size: 0.85rem;
+}
+
+.kb-translation-alert a:hover {
+    color: #0369a1;
+}
+
+.kb-translation-alert .kb-translation-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.35rem;
+}
+
+.kb-translation-alert .kb-translation-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    color: #0284c7;
+}
+
+.kb-translation-alert .kb-translation-action:hover {
+    background: rgba(2, 132, 199, 0.08);
+}
+
+.kb-translation-alert .kb-translation-delete {
+    color: #b91c1c;
+}
+
+.kb-translation-alert .kb-translation-delete:hover {
+    background: rgba(185, 28, 28, 0.1);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Right Sidebar - Scrollspy */
 .kb-scrollspy {
     width: var(--scrollspy-width);
